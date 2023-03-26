@@ -1,5 +1,4 @@
 .idea
-db.sqlite3
 blogs/__init__.py
 app/migrations
 app/__init__.py

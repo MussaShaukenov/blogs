@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-jls*xrfji!8efbz=w1c9sfr_xt@jp4g-ye(qsx-bw_v6hu69kq"
+SECRET_KEY = get_random_secret_key
 DEBUG = True
 
 ALLOWED_HOSTS = []

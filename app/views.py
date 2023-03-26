@@ -2,8 +2,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from .models import Cards
-from .forms import CardForm, SearchForm
+from .models import Cards, Categories
+from .forms import CardForm, SearchForm, CategoryForm
 
 
 class CardListView(ListView):
@@ -45,6 +45,7 @@ class CardDetailView(DetailView):
     template_name = 'app/card_detail.html'
     context_object_name = 'card'
 
+
 class SearchView(View):
     template_name = 'app/search.html'
 
@@ -56,3 +57,43 @@ class SearchView(View):
             results = Cards.objects.filter(title__icontains=query)
         context = {'form': form, 'results': results}
         return render(request, self.template_name, context)
+
+
+class CategoryListView(ListView):
+    model = Categories
+    template_name = 'app/category_list.html'
+    context_object_name = 'categories'
+
+
+class CategoryDetailView(DetailView):
+    model = Categories
+    template_name = 'app/category_detail.html',
+    context_object_name = 'categories'
+
+
+class CategoryCreateView(CreateView):
+    model = Categories
+    form_class = CategoryForm
+    template_name = 'app/category_form.html'
+    success_url = reverse_lazy('card_list')
+
+
+class CategoryUpdateView(UpdateView):
+    model = Categories
+    form_class = CategoryForm
+    template_name = 'app/category_form.html'
+    success_url = reverse_lazy('category_list')
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Cards, pk=pk)
+
+
+class CategoryDeleteView(DeleteView):
+    model = Categories
+    template_name = 'app/category_confirm_delete.html'
+    success_url = reverse_lazy('category_list')
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Cards, pk=pk)

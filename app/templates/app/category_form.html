@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Add a Category</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Name:</label>
+        {{ form.name }}
+        {% if form.name.errors %}
+          <div class="invalid-feedback d-block">{{ form.name.errors|join:", " }}</div>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a href="{% url 'category_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
