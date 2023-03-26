@@ -26,3 +26,4 @@ class Cards(models.Model):
         verbose_name = 'Card'
         verbose_name_plural = 'Cards'
         db_table = 'cards'
+

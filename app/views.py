@@ -7,7 +7,7 @@ from .models import Cards, Categories
 from .forms import CardForm, CategoryForm, SearchForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth import logout
+from django.contrib.auth.models import User
 
 
 class CustomLoginView(LoginView):
@@ -24,6 +24,26 @@ class SignUpView(CreateView):
 class CustomLogoutView(LogoutView):
     template_name = 'app/logout.html'
     next_page = reverse_lazy('card_list')
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = User
+    template_name = 'app/profile.html'
+    context_object_name = 'user'
+    pk_url_kwarg = 'user_id'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'email', 'phone_number', 'address']
+    template_name = 'app/profile_edit.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
 
 
 class CardListView(LoginRequiredMixin, SuccessMessageMixin, ListView):

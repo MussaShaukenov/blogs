@@ -14,6 +14,7 @@ from .views import (
     SearchView,
     SignUpView,
     CustomLogoutView,
+    ProfileView,
 )
 
 urlpatterns = [
@@ -22,6 +23,7 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('profile/', ProfileView.as_view(), name='profile'),
     path('card/new/', CardCreateView.as_view(), name='card_create'),
     path('card/<int:pk>/detail', CardDetailView.as_view(), name='card_detail'),
     path('card/<int:pk>/edit/', CardUpdateView.as_view(), name='card_update'),
