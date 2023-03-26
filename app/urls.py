@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.views import LoginView, LogoutView
 from .views import (
     CardListView,
     CardCreateView,
@@ -11,10 +12,16 @@ from .views import (
     CategoryUpdateView,
     CategoryDeleteView,
     SearchView,
+    SignUpView,
+    CustomLogoutView,
 )
 
 urlpatterns = [
     path('', CardListView.as_view(), name='card_list'),
+    path('login/', LoginView.as_view(template_name='app/login.html'), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('card/new/', CardCreateView.as_view(), name='card_create'),
     path('card/<int:pk>/detail', CardDetailView.as_view(), name='card_detail'),
     path('card/<int:pk>/edit/', CardUpdateView.as_view(), name='card_update'),
