@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="my-4">Cards:</h1>
+        <div class="row">
+            {% for card in cards %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ card.name }}</h2>
+                            <p class="card-text">{{ card.description }}</p>
+                            <a href="{% url 'card_update' card.pk %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'card_delete' card.pk %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'card_create' %}" class="btn btn-success">Add Card</a>
+    </div>
+{% endblock %}
